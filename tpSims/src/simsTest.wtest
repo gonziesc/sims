@@ -1,0 +1,432 @@
+import example.*
+object fixture {
+	method unSimsCualquiera() {
+		return new Sims(hombre,1000,20,buenazo,mujer, programador, 1000)
+	}
+	method unSimsOficinista() {
+		return new Sims(hombre,1000,20,interesado,mujer, oficinista, 1000)
+	}
+	method unSimsSuperficial() {
+		return new Sims(hombre,1000,20,superficial,mujer, barraBrava, 1000)
+	}
+	method unaSimsRica() {
+		return new Sims(mujer,1000,20,superficial,hombre, barraBrava, 100000)
+	}
+	method unSimsInteresado() {
+		return new Sims(hombre,1000,20,interesado,mujer, programador, 1000)
+	}
+	method unSimsPeleado() {
+		return new Sims(hombre,1000,20,peleadoConLaVida,mujer, programador, 1000)
+	}
+	method unaSimsCualquiera() {
+		return new Sims(mujer,1000,19,buenazo,hombre, programador, 1000)
+	}
+	method unaSimsImposible() {
+		return new Sims(mujer,100,19,peleadoConLaVida,hombre, barraBrava, 1000)
+	}
+	method unSimsConAmigos() {
+	var gonza = self.unSimsCualquiera()
+	var lauti = self.unSimsCualquiera()
+	var tomi = self.unSimsCualquiera()
+	var pabli = self.unSimsCualquiera()
+	pabli.agregarAmigo(gonza)
+	pabli.agregarAmigo(lauti)
+	pabli.agregarAmigo(tomi)
+	return pabli
+	}
+	method unSimsCeloso() {
+	var gonza = new Sims(hombre,20,20,buenazo,mujer, programador, 20)
+	var lauti = self.unSimsConAmigos()
+	var tomi = self.unSimsConAmigos()
+	var pabli = self.unSimsConAmigos()
+	var elSimsConMasAmigos = self.unSimsConMuchosAmigos()
+	gonza.agregarAmigo(pabli)
+	gonza.agregarAmigo(lauti)
+	gonza.agregarAmigo(tomi)
+	gonza.agregarAmigo(elSimsConMasAmigos)
+	return gonza
+	}
+	method unaSimsConAmigos() {
+	var cruela = self.unaSimsCualquiera()
+	var pepa = self.unaSimsCualquiera()
+	var maga = self.unaSimsCualquiera()
+	var gonza = self.unSimsCualquiera()
+	cruela.agregarAmigo(gonza)
+	cruela.agregarAmigo(maga)
+	cruela.agregarAmigo(pepa)
+	return cruela
+	}
+	method unaSimsConAmigosImposible() {
+	var cruela = self.unaSimsImposible()
+	var pepa = self.unaSimsCualquiera()
+	var maga = self.unaSimsCualquiera()
+	var gonza = self.unSimsCualquiera()
+	cruela.agregarAmigo(gonza)
+	cruela.agregarAmigo(maga)
+	cruela.agregarAmigo(pepa)
+	return cruela
+	}
+	method unSimsConMuchosAmigos() {
+	var gonza = self.unSimsCualquiera()
+	var lauti = self.unSimsCualquiera()
+	var tomi = self.unSimsCualquiera()
+	var cruela = self.unSimsCualquiera()
+	var dto = self.unSimsCualquiera()
+	var maga = self.unSimsCualquiera()
+	var papo = self.unSimsCualquiera()
+	papo.agregarAmigo(gonza)
+	papo.agregarAmigo(lauti)
+	papo.agregarAmigo(tomi)
+	papo.agregarAmigo(cruela)
+	papo.agregarAmigo(dto)
+	papo.agregarAmigo(maga)
+	return papo
+	}
+	method unaRelacion(unSims, otroSims){
+	return new Relacion(unSims, otroSims)
+	}
+}
+
+test "1.a: si un sims abraza a otro de forma común, 
+el sims abrazado aumenta 4 unidades su felicidad"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	abrazoComun.abrazar(gonza, pau)
+	assert.equals(1004,pau.estado().nivelDeFelicidad(pau))
+}
+
+test "1.b: si un sims abraza a otro de forma prolongada y 
+el abrazado se seitne atraiado por el abrazador, se pone
+soniador"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	abrazoProlongado.abrazar(gonza, pau)
+	assert.equals(soniador,pau.estado())
+}
+
+test "1.c: si un sims abraza a otro de forma prolongada y 
+el abrazado NO se siente atraiado por el abrazador, se pone
+incomodo"{
+	var gonza = fixture.unSimsCualquiera()
+	var cruela = fixture.unaSimsImposible()
+	abrazoProlongado.abrazar(gonza, cruela)
+	assert.equals(incomodidad,cruela.estado())
+}
+
+test "2.a: un sims buenazo de felicidad 1000 valora a otro 
+en 500"{
+	var gonza = fixture.unSimsCualquiera()
+	var lauti = fixture.unSimsCualquiera()
+	var cuantoValora = gonza.personalidad().valorar(gonza, lauti)
+	assert.equals(500,cuantoValora)
+}
+
+test "2.b: un sims interesado valora 300 a otro sims cuya suma 
+de dinero de sus amigos es 3000"{
+	
+	var unSimsInteresado = fixture.unSimsInteresado()
+	var pabli = fixture.unSimsConAmigos()
+	var cuantoValora = unSimsInteresado.personalidad().valorar(unSimsInteresado, pabli)
+	assert.equals(300,cuantoValora)
+}
+
+test "2.c: un sims superficial valora a otro de popularidad 3000
+en 60000"{
+	var pabli = fixture.unSimsConAmigos()
+	var lauti = fixture.unSimsSuperficial()
+	var cuantoValora = lauti.personalidad().valorar(lauti, pabli)
+	assert.equals(60000,cuantoValora)
+}
+
+test "3: el amigo que más valora un sims buenazo es el primero"{
+	var pabli = fixture.unSimsConAmigos()
+	var amigoQueMasValora = pabli.amigoQueMasValora()
+	var primero = pabli.amigos().head()
+	assert.equals(primero, amigoQueMasValora)
+}
+
+test "4: si pabli se hace amigo de juan, este esta en su lista de amigos"{
+	var pabli = fixture.unSimsConAmigos()
+	var juan = fixture.unSimsCualquiera()
+	amistad.hacerAmigo(pabli, juan)
+	assert.that(pabli.esAmigo(juan))
+}
+
+test "5: si pabli y juan se hacen amigos, ambos estan en sus listas de amigos"{
+	var pabli = fixture.unSimsConAmigos()
+	var juan = fixture.unSimsCualquiera()
+	amistad.seHacenAmigos(pabli, juan)
+	var sonAmigos = pabli.esAmigo(juan) && juan.esAmigo(pabli)
+	assert.that(sonAmigos)
+}
+
+test "6.a: pabli no es amigo de juan"{
+	var pabli = fixture.unSimsConAmigos()
+	var juan = fixture.unSimsCualquiera()
+	assert.that(not(pabli.esAmigo(juan)))
+}
+
+test "6.b: pabli es amigo de su primer amigo"{
+	var pabli = fixture.unSimsConAmigos()
+	assert.that(pabli.esAmigo(pabli.amigos().head()))
+}
+
+test "7: los primeros 4 amigos de papo son gonza, lauti, tomi y cruela"{
+	var papo = fixture.unSimsConMuchosAmigos()
+	var primerosAmigos = papo.amigosDeFierro()
+	assert.equals(papo.amigos().take(4), primerosAmigos)
+}
+
+test "8: los ultimos 4 amigos de papo son tomi, cruela, dto y maga"{
+	var papo = fixture.unSimsConMuchosAmigos()
+	var nuevosAmigos = papo.nuevosAmigos()
+	assert.equals(papo.amigos().drop(papo.amigos().size() - 4), nuevosAmigos)
+}
+
+test "9: el nivel de popularidad de pabli es 3000"{
+	var pabli = fixture.unSimsConAmigos()
+	assert.equals(3000, pabli.popularidad())
+}
+
+test "10: pabli es el mas popular de su circulo de amigos"{
+	var pabli = fixture.unSimsConAmigos()
+	assert.that(pabli.esElMasPopular())
+}
+
+test "11: gonza y pau arrancan una relacion, se tienen como pareja"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var noviazgo = fixture.unaRelacion(gonza, pau)	
+	noviazgo.comenzarRelacion()
+	var seTienenDePareja = gonza.pareja() == pau && pau.pareja() == gonza
+	assert.that(seTienenDePareja)
+}
+
+test "12: gonza y pau arrancan una relacion, lauti no pertenece a la relacion"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var lauti = fixture.unSimsSuperficial()
+	var noviazgo = fixture.unaRelacion(gonza, pau)	
+	noviazgo.comenzarRelacion()
+	assert.that(not(noviazgo.estaEnRelacion(lauti)))
+}
+
+test "13: gonza y pau arrancan una relacion y cortan, ya no se tienen como pareja"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var noviazgo = fixture.unaRelacion(gonza, pau)	
+	noviazgo.comenzarRelacion()
+	noviazgo.terminarRelacion()
+	var noSeTienenDePareja = gonza.pareja() == soltero && pau.pareja() == soltero
+	assert.that(noSeTienenDePareja)
+}
+
+test "14: gonza y pau arrancan una relacion y cortan, la relacion se termino"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var noviazgo = fixture.unaRelacion(gonza, pau)	
+	noviazgo.comenzarRelacion()
+	noviazgo.terminarRelacion()
+	assert.that(noviazgo.terminoLaRelacion())
+}
+
+test "15: pabli y cruela tienen 8 amigos en la relacion"{
+	var pabli = fixture.unSimsConAmigos()
+	var cruela = fixture.unaSimsConAmigos()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)	
+	var circulo = noviazgo.nuevosAmigos()
+	assert.equals(6, circulo.size())
+}
+
+test "16.a: los miembros de la relacion noviazgo son dos"{
+	var pabli = fixture.unSimsConAmigos()
+	var cruela = fixture.unaSimsConAmigos()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)
+	var miembros = noviazgo.miembros()	
+	assert.equals(2, miembros.size())
+}
+
+test "16.b: pabli es miembro de la relacion noviazgo"{
+	var pabli = fixture.unSimsConAmigos()
+	var cruela = fixture.unaSimsConAmigos()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)
+	var miembros = noviazgo.miembros()	
+	assert.that(miembros.contains(pabli))
+}
+
+test "17.a: la relacion entre gonza y pau funciona porque ambos están 
+atraidos"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var noviazgo = fixture.unaRelacion(gonza, pau)
+	var funciona = noviazgo.funcionaRelacion()	
+	assert.that(funciona)
+}
+
+test "17.b: la relacion entre pabli y cruela no funciona "{
+	var pabli = fixture.unSimsCualquiera()
+	var cruela = fixture.unaSimsImposible()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)
+	var funciona = noviazgo.funcionaRelacion()	
+	assert.that(not(funciona))
+}
+
+test "18: se pudrio todo entre cruela y pabli porque a pabli le gusta pepa"{
+	var pabli = fixture.unSimsCualquiera()
+	var cruela = fixture.unaSimsConAmigosImposible()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)
+	noviazgo.nuevosAmigos()
+	var sePudrioTodo = noviazgo.sePudreTodo()
+	assert.that(sePudrioTodo)
+}
+
+test "19: pabli y cruela cortan y luego reinician su relacion"{
+	var pabli = fixture.unSimsCualquiera()
+	var pepa = fixture.unaSimsCualquiera()
+	var cruela = fixture.unaSimsConAmigosImposible()
+	var noviazgo = fixture.unaRelacion(pabli, cruela)
+	noviazgo.terminarRelacion()
+	var infieles = fixture.unaRelacion(pabli, pepa)
+	noviazgo.reiniciarRelacion()
+	var seTienenDePareja = pabli.pareja() == cruela && cruela.pareja() == pabli
+	assert.that(seTienenDePareja)
+}
+
+test "20.a: a un sims interesado le atrae una sims rica"{
+	var interesado = fixture.unSimsInteresado()
+	var rica = fixture.unaSimsRica()
+	var atrae = interesado.personalidad().leInteresa(interesado, rica)
+	assert.that(atrae)
+}
+
+test "20.b: a un sims superficial le atrae un sims mas popular que todos sus amigos"{
+	var superficial = fixture.unSimsSuperficial()
+	superficial.agregarAmigo(fixture.unSimsCualquiera())
+	var popular = fixture.unaSimsConAmigos()
+	var atrae = superficial.personalidad().leInteresa(superficial, popular)
+	assert.that(atrae)
+}
+
+test "20.c: a un sims buenazo le atrae cualquier mujer"{
+	var buenazo = fixture.unSimsCualquiera()
+	var mujer = fixture.unaSimsImposible()
+	var atrae = buenazo.personalidad().leInteresa(buenazo, mujer)
+	assert.that(atrae)
+}
+
+
+
+test "20.d: a un sims peleado con la vida le atrae 
+alguien triste"{
+	var peleado = fixture.unSimsPeleado()
+	var mujerTriste = fixture.unaSimsImposible()
+	var atrae = peleado.personalidad().leInteresa(peleado, mujerTriste)
+	assert.that(atrae)
+}
+
+test "21:a un peleado con la vida solo le atrae la gente triste  (2 personas)"{
+	var peleado = fixture.unSimsPeleado()
+	var mujerTriste = fixture.unaSimsImposible()
+	var otraMujerTriste = fixture.unaSimsImposible()
+	var unSims = fixture.unSimsCualquiera()
+	var personasQueLeGustan = peleado.quienesLeGustan([mujerTriste, 
+		otraMujerTriste, unSims
+	])
+	assert.equals(2, personasQueLeGustan.size())
+}
+
+test "22 y 24: si le cuento una informacion a un sims, este la tiene"{
+	var unSims = fixture.unSimsCualquiera()
+	var informacion = "pepe se caso con pepea"
+	unSims.contarInformacion(informacion)
+	assert.that(unSims.tieneInformacion(informacion))
+}
+
+test "23: un sims que conoce hola y chau conoce 8 caracteres"{
+	var unSims = fixture.unSimsCualquiera()
+	var informacion = "hola"
+	var informacion2 = "chau"
+	unSims.contarInformacion(informacion)
+	unSims.contarInformacion(informacion2)
+	assert.equals(8, unSims.cuanConocedor())
+}
+
+test "25: si un sims tiene amnesia, su lista de conocimientos esta
+vacia"{
+	var unSims = fixture.unSimsCualquiera()
+	var informacion = "hola"
+	var informacion2 = "chau"
+	unSims.contarInformacion(informacion)
+	unSims.contarInformacion(informacion2)
+	unSims.amnesia()
+	assert.that(unSims.informacion().isEmpty())
+}
+
+test "26.a: un sims soniador de 1000 de felicidad ahora tiene 2000"{
+	var unSims = fixture.unSimsCualquiera()
+	unSims.cambiarEstado(soniador)
+	assert.equals(2000, unSims.estado().nivelDeFelicidad(unSims))
+}
+test "26.b: un sims incomodo de 1000 de felicidad ahora tiene 800"{
+	var unSims = fixture.unSimsCualquiera()
+	unSims.cambiarEstado(soniador)
+	unSims.cambiarEstado(incomodidad)
+	assert.equals(800, unSims.estado().nivelDeFelicidad(unSims))
+}
+
+test "27: un sims que estaba incomodo de 1000 de felicidad ahora tiene 1000 otra vez"{
+	var unSims = fixture.unSimsCualquiera()
+	unSims.cambiarEstado(incomodidad)
+	unSims.seLeFueElEstado()
+	assert.equals(1000, unSims.estado().nivelDeFelicidad(unSims))
+}
+
+test "28.a: un sims celoso por plata deja de tener amigos porque todos tienen mas plata que 
+él"{
+	var unSims = fixture.unSimsCeloso()
+	celosPorPlata.hacerQueTengaCelos(unSims)
+	assert.equals(0, unSims.amigos().size())
+}
+
+test "28.b: un sims celoso por popularidad deja de tener al sims con
+más amigos porque este es más popular que él"{
+	var unSims = fixture.unSimsCeloso()
+	celosPorPopularidad.hacerQueTengaCelos(unSims)
+	assert.equals(3, unSims.amigos().size())
+}
+
+test "28.c: un sims celoso de su pareja deja de tener al amigo en común"{
+	var unSims = fixture.unSimsCeloso()
+	var unaSims = fixture.unaSimsCualquiera()
+	var estaEnElmedio = fixture.unSimsCualquiera()
+	unSims.agregarAmigo(estaEnElmedio)
+	unaSims.agregarAmigo(estaEnElmedio)
+	var noviazgo = fixture.unaRelacion(unSims, unaSims)
+	noviazgo.comenzarRelacion()
+	celosPorPareja.hacerQueTengaCelos(unSims)
+	assert.equals(4, unSims.amigos().size())
+}
+
+test "29.a: un sims progrmador gana 20 unidades de felicidad y además
+es buenazo tiene 1120"{
+	var unSims = fixture.unSimsCualquiera()
+	unSims.trabajo().tipoTrabajo().trabajar(unSims)
+	assert.equals(1120, unSims.estado().nivelDeFelicidad(unSims))
+}
+
+test "29.b: un sims barraBrava gana 100 unidades de dinero + 20, el 2%
+de lo que ya tiene, tiene 1120"{
+	var unSims = fixture.unSimsSuperficial()
+	unSims.trabajo().tipoTrabajo().trabajar(unSims)
+	assert.equals(1120, unSims.dinero())
+}
+
+test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
+	var unSims = fixture.unSimsOficinista()
+	unSims.trabajo().tipoTrabajo().trabajar(unSims)
+	assert.equals(980, unSims.estado().nivelDeFelicidad(unSims))
+}
+
+//30 Si, evaluar si es Buenazo se hace para los 3 tipos de trabajo
+//Se podría arreglar con Override haciendo el metodo trabajar
+//en la clase Trabajar, lo vimos la clase del 12/09
