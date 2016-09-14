@@ -1,4 +1,4 @@
-//gonza
+
 class Sims {
 	var sexo
 	var edad
