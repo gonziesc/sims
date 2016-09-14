@@ -30,11 +30,20 @@ class Sims {
 	method relacion(){
 		return relacion
 	}
+	method trabajar(){
+		trabajo.tipoTrabajo().trabajar(self)
+	}
 	method informacion(){
-		return informacion
+		return estado.informacion(informacion)
 	}
 	method estado(){
 		return estado
+	}
+	method valoracion(unSims){
+		return personalidad.valorar(self, unSims)
+	}
+	method leInteresa(unSims){
+		return personalidad.leInteresa(self, unSims)
 	}
 	method dinero(){
 		return dinero
@@ -55,7 +64,7 @@ class Sims {
 		return edad
 	}
 	method nivelDeFelicidad(){
-		return nivelDeFelicidad
+		return estado.nivelDeFelicidad(nivelDeFelicidad)
 	}
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
@@ -74,7 +83,7 @@ class Sims {
 		dinero += nuevoDinero
 	}
 	method quienesLeGustan(listaPersonas){
-		return listaPersonas.filter({unSims => self.personalidad().leInteresa(self, unSims)})
+		return listaPersonas.filter({unSims => self.leInteresa(unSims)})
 	}
 	method cambiarEstado(nuevoEstado){
 		if(estado == nuevoEstado) {
@@ -104,7 +113,7 @@ class Sims {
 		return amigos.contains(unAmigo)
 	}
 	method amigoQueMasValora(){
-		return amigos.max({unAmigo => self.personalidad().valorar(self, unAmigo)})
+		return amigos.max({unAmigo => self.valoracion(self)})
 	}
 	method popularidad(){
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})
@@ -139,7 +148,7 @@ object amistad{
 		self.hacerAmigo(otroSims, unSims)
 	}
 	method calcularNivel(unSims, otroSims){
-		return unSims.personalidad().valorar(unSims, otroSims)
+		return unSims.valoracion(otroSims)
 	}
 }
 class Atraccion{
@@ -202,7 +211,7 @@ object abrazoComun{
 
 object abrazoProlongado{
 	method abrazar(unSims, otroSims){
-		if(otroSims.personalidad().leInteresa(otroSims, unSims)){
+		if(otroSims.leInteresa(unSims)){
 			otroSims.cambiarEstado(soniador)
 		}
 		else{
@@ -238,7 +247,7 @@ class Relacion{
 			return [unSims, otroSims]
 	}
 	method funcionaRelacion(){
-		return unSims.personalidad().leInteresa(unSims, otroSims) &&  otroSims.personalidad().leInteresa(otroSims, unSims)
+		return unSims.leInteresa(otroSims) &&  otroSims.leInteresa(unSims)
 	}
 	method sePudreTodo(){
 		return not(self.funcionaRelacion()) && self.algunoPuedeSerInfiel()
@@ -259,7 +268,7 @@ class Relacion{
 		return not(unSims.pareja() == otroSims) 
 	}
 	method algunoPuedeSerInfiel(){
-		return nuevosAmigos.any({otrSims => unSims.personalidad().leInteresa(unSims, otrSims)}) || nuevosAmigos.any({otrSims => otroSims.personalidad().leInteresa(otroSims, otrSims)})
+		return nuevosAmigos.any({otrSims => unSims.leInteresa(otrSims)}) || nuevosAmigos.any({otrSims => otroSims.leInteresa(otrSims)})
 	}
 }
 class Trabajar{
@@ -363,28 +372,28 @@ class Celos{
 	
 }
 object normalidad{
-	method nivelDeFelicidad(unSims){
-		return unSims.nivelDeFelicidad()
+	method nivelDeFelicidad(felicidad){
+		return felicidad
 	}
-	method informacion(unSims){
-		return unSims.informacion()
+	method informacion(informacion){
+		return informacion
 	}
 }
 
 object soniador{
-	method nivelDeFelicidad(unSims){
-		return unSims.nivelDeFelicidad() + 1000
+	method nivelDeFelicidad(felicidad){
+		return felicidad + 1000
 	}
-	method informacion(unSims){
+	method informacion(informacion){
 		return []
 	}
 }
 
 object incomodidad{
-	method nivelDeFelicidad(unSims){
-		return unSims.nivelDeFelicidad() -200
+	method nivelDeFelicidad(felicidad){
+		return felicidad -200
 	}
-	method informacion(unSims){
-		return unSims.informacion()
+	method informacion(informacion){
+		return informacion
 	}
 }

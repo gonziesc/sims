@@ -32,11 +32,4 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.uqbar.project.wollok.wollokNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/simsTest.wtest</name>
-			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Users/gonzi_000/Documents/sims/src/simsTest.wtest</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

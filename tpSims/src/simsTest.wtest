@@ -92,7 +92,7 @@ el sims abrazado aumenta 4 unidades su felicidad"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
 	abrazoComun.abrazar(gonza, pau)
-	assert.equals(1004,pau.estado().nivelDeFelicidad(pau))
+	assert.equals(1004,pau.nivelDeFelicidad())
 }
 
 test "1.b: si un sims abraza a otro de forma prolongada y 
@@ -117,7 +117,7 @@ test "2.a: un sims buenazo de felicidad 1000 valora a otro
 en 500"{
 	var gonza = fixture.unSimsCualquiera()
 	var lauti = fixture.unSimsCualquiera()
-	var cuantoValora = gonza.personalidad().valorar(gonza, lauti)
+	var cuantoValora = gonza.valoracion(lauti)
 	assert.equals(500,cuantoValora)
 }
 
@@ -126,7 +126,7 @@ de dinero de sus amigos es 3000"{
 	
 	var unSimsInteresado = fixture.unSimsInteresado()
 	var pabli = fixture.unSimsConAmigos()
-	var cuantoValora = unSimsInteresado.personalidad().valorar(unSimsInteresado, pabli)
+	var cuantoValora = unSimsInteresado.valoracion(pabli)
 	assert.equals(300,cuantoValora)
 }
 
@@ -134,7 +134,7 @@ test "2.c: un sims superficial valora a otro de popularidad 3000
 en 60000"{
 	var pabli = fixture.unSimsConAmigos()
 	var lauti = fixture.unSimsSuperficial()
-	var cuantoValora = lauti.personalidad().valorar(lauti, pabli)
+	var cuantoValora = lauti.valoracion(pabli)
 	assert.equals(60000,cuantoValora)
 }
 
@@ -295,7 +295,7 @@ test "19: pabli y cruela cortan y luego reinician su relacion"{
 test "20.a: a un sims interesado le atrae una sims rica"{
 	var interesado = fixture.unSimsInteresado()
 	var rica = fixture.unaSimsRica()
-	var atrae = interesado.personalidad().leInteresa(interesado, rica)
+	var atrae = interesado.leInteresa(rica)
 	assert.that(atrae)
 }
 
@@ -303,14 +303,14 @@ test "20.b: a un sims superficial le atrae un sims mas popular que todos sus ami
 	var superficial = fixture.unSimsSuperficial()
 	superficial.agregarAmigo(fixture.unSimsCualquiera())
 	var popular = fixture.unaSimsConAmigos()
-	var atrae = superficial.personalidad().leInteresa(superficial, popular)
+	var atrae = superficial.leInteresa(popular)
 	assert.that(atrae)
 }
 
 test "20.c: a un sims buenazo le atrae cualquier mujer"{
 	var buenazo = fixture.unSimsCualquiera()
 	var mujer = fixture.unaSimsImposible()
-	var atrae = buenazo.personalidad().leInteresa(buenazo, mujer)
+	var atrae = buenazo.leInteresa(mujer)
 	assert.that(atrae)
 }
 
@@ -320,7 +320,7 @@ test "20.d: a un sims peleado con la vida le atrae
 alguien triste"{
 	var peleado = fixture.unSimsPeleado()
 	var mujerTriste = fixture.unaSimsImposible()
-	var atrae = peleado.personalidad().leInteresa(peleado, mujerTriste)
+	var atrae = peleado.leInteresa(mujerTriste)
 	assert.that(atrae)
 }
 
@@ -365,20 +365,20 @@ vacia"{
 test "26.a: un sims soniador de 1000 de felicidad ahora tiene 2000"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.cambiarEstado(soniador)
-	assert.equals(2000, unSims.estado().nivelDeFelicidad(unSims))
+	assert.equals(2000, unSims.nivelDeFelicidad())
 }
 test "26.b: un sims incomodo de 1000 de felicidad ahora tiene 800"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.cambiarEstado(soniador)
 	unSims.cambiarEstado(incomodidad)
-	assert.equals(800, unSims.estado().nivelDeFelicidad(unSims))
+	assert.equals(800, unSims.nivelDeFelicidad())
 }
 
 test "27: un sims que estaba incomodo de 1000 de felicidad ahora tiene 1000 otra vez"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.cambiarEstado(incomodidad)
 	unSims.seLeFueElEstado()
-	assert.equals(1000, unSims.estado().nivelDeFelicidad(unSims))
+	assert.equals(1000, unSims.nivelDeFelicidad())
 }
 
 test "28.a: un sims celoso por plata deja de tener amigos porque todos tienen mas plata que 
@@ -410,21 +410,21 @@ test "28.c: un sims celoso de su pareja deja de tener al amigo en común"{
 test "29.a: un sims progrmador gana 20 unidades de felicidad y además
 es buenazo tiene 1120"{
 	var unSims = fixture.unSimsCualquiera()
-	unSims.trabajo().tipoTrabajo().trabajar(unSims)
-	assert.equals(1120, unSims.estado().nivelDeFelicidad(unSims))
+	unSims.trabajar()
+	assert.equals(1120, unSims.nivelDeFelicidad())
 }
 
 test "29.b: un sims barraBrava gana 100 unidades de dinero + 20, el 2%
 de lo que ya tiene, tiene 1120"{
 	var unSims = fixture.unSimsSuperficial()
-	unSims.trabajo().tipoTrabajo().trabajar(unSims)
+	unSims.trabajar()
 	assert.equals(1120, unSims.dinero())
 }
 
 test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
 	var unSims = fixture.unSimsOficinista()
-	unSims.trabajo().tipoTrabajo().trabajar(unSims)
-	assert.equals(980, unSims.estado().nivelDeFelicidad(unSims))
+	unSims.trabajar()
+	assert.equals(980, unSims.nivelDeFelicidad())
 }
 
 //30 Si, evaluar si es Buenazo se hace para los 3 tipos de trabajo
