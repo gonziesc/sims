@@ -69,6 +69,9 @@ class Sims {
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
 	}
+	method trabajaConTodosSusAmigos(){
+		return amigos.all({unAmigo => unAmigo.trabajo() == trabajo})
+	}
 	method cambiarRelacion(unaRelacion){
 		relacion = unaRelacion
 	}
@@ -115,6 +118,9 @@ class Sims {
 	method amigoQueMasValora(){
 		return amigos.max({unAmigo => self.valoracion(self)})
 	}
+	method amigoMasPopular(){
+		return amigos.max({unAmigo => unAmigo.popularidad()})
+	}
 	method popularidad(){
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})
 	}
@@ -128,7 +134,7 @@ class Sims {
 		}
 	}
 	method cuanConocedor(){
-		return informacion.map({unaInfo => unaInfo.size()}).sum()
+		return informacion.sum({unaInfo => unaInfo.length()})
 	}
 	method amnesia(){
 		informacion = []
@@ -158,7 +164,8 @@ class Atraccion{
 }
 object interesado inherits Atraccion{
 	method valorar(unSims, otroSims){
-		return otroSims.amigos().sum({unAmigo => unAmigo.dinero()})*0.1
+		var dineroAmigos =  otroSims.amigos().sum({unAmigo => unAmigo.dinero()})
+		return dineroAmigos*0.1
 	}
 	method leInteresa(unSims, otroSims){
 		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
@@ -172,12 +179,9 @@ object superficial  inherits Atraccion{
 	}
 	method leInteresa(unSims, otroSims){
 		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
-		var masPopular = self.amigoMasPopular(unSims).popularidad() < otroSims.popularidad() 
+		var masPopular = unSims.amigoMasPopular().popularidad() < otroSims.popularidad() 
 		var enRangoDeEdad = otroSims.edad() > 18 && otroSims.edad() < 29
 		return sexoPreferencia && masPopular && enRangoDeEdad
-	}
-	method amigoMasPopular(unSims){
-		return unSims.amigos().max({unSim => unSim.popularidad()})
 	}
 }
 
@@ -226,7 +230,7 @@ class Relacion{
 	constructor(unSimsC, otroSimsC){
 		unSims = unSimsC
 		otroSims = otroSimsC
-		
+		self.comenzarRelacion()
 	}
 	method comenzarRelacion(){
 		unSims.cambiarPareja(otroSims)
@@ -273,7 +277,9 @@ class Relacion{
 }
 class Trabajar{
 	method porSerBuenazo(unSims){
-		if(unSims.personalidad() == buenazo && unSims.amigos().all({unAmigo => unAmigo.trabajo() == unSims.trabajo()})){
+		var esBuenazo = unSims.personalidad() == buenazo
+		var trabajaConSusAmigos = unSims.trabajaConTodosSusAmigos()
+		if(esBuenazo && trabajaConSusAmigos){
 			unSims.aumentarFelicidad(unSims.nivelDeFelicidad()*0.1)
 		}
 	}
@@ -290,7 +296,8 @@ object copado inherits Trabajar{
 object mercenario inherits Trabajar {
 	method trabajar(unSims){
 		self.porSerBuenazo(unSims)
-		unSims.cambiarDinero(100 + unSims.dinero()*0.02)
+		var dineroGanado = 100 + unSims.dinero()*0.02
+		unSims.cambiarDinero(dineroGanado)
 	}	
 }	
 

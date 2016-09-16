@@ -197,7 +197,6 @@ test "11: gonza y pau arrancan una relacion, se tienen como pareja"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
 	var noviazgo = fixture.unaRelacion(gonza, pau)	
-	noviazgo.comenzarRelacion()
 	var seTienenDePareja = gonza.pareja() == pau && pau.pareja() == gonza
 	assert.that(seTienenDePareja)
 }
@@ -207,7 +206,6 @@ test "12: gonza y pau arrancan una relacion, lauti no pertenece a la relacion"{
 	var pau = fixture.unaSimsCualquiera()
 	var lauti = fixture.unSimsSuperficial()
 	var noviazgo = fixture.unaRelacion(gonza, pau)	
-	noviazgo.comenzarRelacion()
 	assert.that(not(noviazgo.estaEnRelacion(lauti)))
 }
 
@@ -215,7 +213,6 @@ test "13: gonza y pau arrancan una relacion y cortan, ya no se tienen como parej
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
 	var noviazgo = fixture.unaRelacion(gonza, pau)	
-	noviazgo.comenzarRelacion()
 	noviazgo.terminarRelacion()
 	var noSeTienenDePareja = gonza.pareja() == soltero && pau.pareja() == soltero
 	assert.that(noSeTienenDePareja)
@@ -225,7 +222,6 @@ test "14: gonza y pau arrancan una relacion y cortan, la relacion se termino"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
 	var noviazgo = fixture.unaRelacion(gonza, pau)	
-	noviazgo.comenzarRelacion()
 	noviazgo.terminarRelacion()
 	assert.that(noviazgo.terminoLaRelacion())
 }
