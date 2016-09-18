@@ -87,10 +87,11 @@ object fixture {
 	}
 }
 
-test "1.a: si un sims abraza a otro de forma com˙n, 
+test "1.a: si un sims abraza a otro de forma com√∫n, 
 el sims abrazado aumenta 4 unidades su felicidad"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
+	// gonza.abrazar(pau, abrazoComun)
 	abrazoComun.abrazar(gonza, pau)
 	assert.equals(1004,pau.nivelDeFelicidad())
 }
@@ -100,6 +101,7 @@ el abrazado se seitne atraiado por el abrazador, se pone
 soniador"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
+	// gonza.abrazar(pau, abrazoProlongado)
 	abrazoProlongado.abrazar(gonza, pau)
 	assert.equals(soniador,pau.estado())
 }
@@ -109,6 +111,7 @@ el abrazado NO se siente atraiado por el abrazador, se pone
 incomodo"{
 	var gonza = fixture.unSimsCualquiera()
 	var cruela = fixture.unaSimsImposible()
+	// gonza.abrazar(cruela, abrazoProlongado)
 	abrazoProlongado.abrazar(gonza, cruela)
 	assert.equals(incomodidad,cruela.estado())
 }
@@ -138,7 +141,7 @@ en 60000"{
 	assert.equals(60000,cuantoValora)
 }
 
-test "3: el amigo que m·s valora un sims buenazo es el primero"{
+test "3: el amigo que m√°s valora un sims buenazo es el primero"{
 	var pabli = fixture.unSimsConAmigos()
 	var amigoQueMasValora = pabli.amigoQueMasValora()
 	var primero = pabli.amigos().head()
@@ -250,7 +253,7 @@ test "16.b: pabli es miembro de la relacion noviazgo"{
 	assert.that(miembros.contains(pabli))
 }
 
-test "17.a: la relacion entre gonza y pau funciona porque ambos est·n 
+test "17.a: la relacion entre gonza y pau funciona porque ambos est√°n 
 atraidos"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
@@ -378,20 +381,22 @@ test "27: un sims que estaba incomodo de 1000 de felicidad ahora tiene 1000 otra
 }
 
 test "28.a: un sims celoso por plata deja de tener amigos porque todos tienen mas plata que 
-Èl"{
+√©l"{
 	var unSims = fixture.unSimsCeloso()
+	//unSims.celar(celosPorPlata)
 	celosPorPlata.hacerQueTengaCelos(unSims)
 	assert.equals(0, unSims.amigos().size())
 }
 
 test "28.b: un sims celoso por popularidad deja de tener al sims con
-m·s amigos porque este es m·s popular que Èl"{
+m√°s amigos porque este es m√°s popular que √©l"{
 	var unSims = fixture.unSimsCeloso()
+	//unSims.celar(celosPorPopularidad)
 	celosPorPopularidad.hacerQueTengaCelos(unSims)
 	assert.equals(3, unSims.amigos().size())
 }
 
-test "28.c: un sims celoso de su pareja deja de tener al amigo en com˙n"{
+test "28.c: un sims celoso de su pareja deja de tener al amigo en com√∫n"{
 	var unSims = fixture.unSimsCeloso()
 	var unaSims = fixture.unaSimsCualquiera()
 	var estaEnElmedio = fixture.unSimsCualquiera()
@@ -399,11 +404,12 @@ test "28.c: un sims celoso de su pareja deja de tener al amigo en com˙n"{
 	unaSims.agregarAmigo(estaEnElmedio)
 	var noviazgo = fixture.unaRelacion(unSims, unaSims)
 	noviazgo.comenzarRelacion()
+		//unSims.celar(celosPorPareja)
 	celosPorPareja.hacerQueTengaCelos(unSims)
 	assert.equals(4, unSims.amigos().size())
 }
 
-test "29.a: un sims progrmador gana 20 unidades de felicidad y adem·s
+test "29.a: un sims progrmador gana 20 unidades de felicidad y adem√°s
 es buenazo tiene 1120"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.trabajar()
@@ -424,5 +430,5 @@ test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
 }
 
 //30 Si, evaluar si es Buenazo se hace para los 3 tipos de trabajo
-//Se podrÌa arreglar con Override haciendo el metodo trabajar
+//Se podr√≠a arreglar con Override haciendo el metodo trabajar
 //en la clase Trabajar, lo vimos la clase del 12/09
