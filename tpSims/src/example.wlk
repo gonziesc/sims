@@ -66,6 +66,12 @@ class Sims {
 	method nivelDeFelicidad(){
 		return estado.nivelDeFelicidad(nivelDeFelicidad)
 	}
+//	method abrazar(unSims, tipoAbrazo){
+//		tipoAbrazo.abrazar(Self, unSims)
+//	}
+//	method celar(tipoCelos){
+//		tipoCelos.hacerQueTengaCelos(Self)
+//	}
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
 	}
