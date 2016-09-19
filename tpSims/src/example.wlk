@@ -66,12 +66,12 @@ class Sims {
 	method nivelDeFelicidad(){
 		return estado.nivelDeFelicidad(nivelDeFelicidad)
 	}
-//	method abrazar(unSims, tipoAbrazo){
-//		tipoAbrazo.abrazar(Self, unSims)
-//	}
-//	method celar(tipoCelos){
-//		tipoCelos.hacerQueTengaCelos(Self)
-//	}
+	method abrazar(unSims, tipoAbrazo){
+		tipoAbrazo.abrazar(self, unSims)
+	}
+	method celar(tipoCelos){
+		tipoCelos.hacerQueTengaCelos(self)
+	}
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
 	}
@@ -96,10 +96,10 @@ class Sims {
 	}
 	method cambiarEstado(nuevoEstado){
 		if(estado == nuevoEstado) {
-  		error.throwWithMessage("ya tiene este estado")
+  			error.throwWithMessage("ya tiene este estado")
   		}
   		if(not(nuevoEstado == normalidad)) {
-  		self.seLeFueElEstado()
+  			self.seLeFueElEstado()
   		}
   		estado = nuevoEstado
 	}
@@ -237,6 +237,7 @@ class Relacion{
 		unSims = unSimsC
 		otroSims = otroSimsC
 		self.comenzarRelacion()
+		self.nuevosAmigos()
 	}
 	method comenzarRelacion(){
 		unSims.cambiarPareja(otroSims)
@@ -251,8 +252,16 @@ class Relacion{
 		unSims.amigos().forEach({unAmigo => nuevosAmigos.add(unAmigo)})
 	var sinRepetidos = otroSims.amigos().filter({unAmigo => not(nuevosAmigos.contains(unAmigo))})
 		sinRepetidos.forEach({unAmigo => nuevosAmigos.add(unAmigo)})
-		return nuevosAmigos
+		//nuevosAmigos.addAll(unSims.amigos())
+		//nuevosAmigos.addAll(otroSims.amigos())
+	//	nuevosAmigos.asSet()
+	//Descartamos esta solucion porque tarda bastante en testear (calculamos que tarda
+	//el algoritmo del asSet)
 		}
+	method amigos(){
+		return nuevosAmigos
+	}
+	
 	method miembros(){
 			return [unSims, otroSims]
 	}

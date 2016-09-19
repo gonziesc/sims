@@ -91,8 +91,7 @@ test "1.a: si un sims abraza a otro de forma común,
 el sims abrazado aumenta 4 unidades su felicidad"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
-	// gonza.abrazar(pau, abrazoComun)
-	abrazoComun.abrazar(gonza, pau)
+	 gonza.abrazar(pau, abrazoComun)
 	assert.equals(1004,pau.nivelDeFelicidad())
 }
 
@@ -101,8 +100,7 @@ el abrazado se seitne atraiado por el abrazador, se pone
 soniador"{
 	var gonza = fixture.unSimsCualquiera()
 	var pau = fixture.unaSimsCualquiera()
-	// gonza.abrazar(pau, abrazoProlongado)
-	abrazoProlongado.abrazar(gonza, pau)
+	gonza.abrazar(pau, abrazoProlongado)
 	assert.equals(soniador,pau.estado())
 }
 
@@ -111,8 +109,7 @@ el abrazado NO se siente atraiado por el abrazador, se pone
 incomodo"{
 	var gonza = fixture.unSimsCualquiera()
 	var cruela = fixture.unaSimsImposible()
-	// gonza.abrazar(cruela, abrazoProlongado)
-	abrazoProlongado.abrazar(gonza, cruela)
+	gonza.abrazar(cruela, abrazoProlongado)
 	assert.equals(incomodidad,cruela.estado())
 }
 
@@ -141,7 +138,7 @@ en 60000"{
 	assert.equals(60000,cuantoValora)
 }
 
-test "3: el amigo que más valora un sims buenazo es el primero"{
+test "3: el amigo que mas valora un sims buenazo es el primero"{
 	var pabli = fixture.unSimsConAmigos()
 	var amigoQueMasValora = pabli.amigoQueMasValora()
 	var primero = pabli.amigos().head()
@@ -233,7 +230,7 @@ test "15: pabli y cruela tienen 8 amigos en la relacion"{
 	var pabli = fixture.unSimsConAmigos()
 	var cruela = fixture.unaSimsConAmigos()
 	var noviazgo = fixture.unaRelacion(pabli, cruela)	
-	var circulo = noviazgo.nuevosAmigos()
+	var circulo = noviazgo.amigos()
 	assert.equals(6, circulo.size())
 }
 
@@ -381,22 +378,20 @@ test "27: un sims que estaba incomodo de 1000 de felicidad ahora tiene 1000 otra
 }
 
 test "28.a: un sims celoso por plata deja de tener amigos porque todos tienen mas plata que 
-él"{
+el"{
 	var unSims = fixture.unSimsCeloso()
-	//unSims.celar(celosPorPlata)
-	celosPorPlata.hacerQueTengaCelos(unSims)
+	unSims.celar(celosPorPlata)
 	assert.equals(0, unSims.amigos().size())
 }
 
 test "28.b: un sims celoso por popularidad deja de tener al sims con
-más amigos porque este es más popular que él"{
+mas amigos porque este es mas popular que el"{
 	var unSims = fixture.unSimsCeloso()
-	//unSims.celar(celosPorPopularidad)
-	celosPorPopularidad.hacerQueTengaCelos(unSims)
+	unSims.celar(celosPorPopularidad)
 	assert.equals(3, unSims.amigos().size())
 }
 
-test "28.c: un sims celoso de su pareja deja de tener al amigo en común"{
+test "28.c: un sims celoso de su pareja deja de tener al amigo en comun"{
 	var unSims = fixture.unSimsCeloso()
 	var unaSims = fixture.unaSimsCualquiera()
 	var estaEnElmedio = fixture.unSimsCualquiera()
@@ -404,12 +399,11 @@ test "28.c: un sims celoso de su pareja deja de tener al amigo en común"{
 	unaSims.agregarAmigo(estaEnElmedio)
 	var noviazgo = fixture.unaRelacion(unSims, unaSims)
 	noviazgo.comenzarRelacion()
-		//unSims.celar(celosPorPareja)
-	celosPorPareja.hacerQueTengaCelos(unSims)
+	unSims.celar(celosPorPareja)
 	assert.equals(4, unSims.amigos().size())
 }
 
-test "29.a: un sims progrmador gana 20 unidades de felicidad y además
+test "29.a: un sims progrmador gana 20 unidades de felicidad y ademas
 es buenazo tiene 1120"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.trabajar()
