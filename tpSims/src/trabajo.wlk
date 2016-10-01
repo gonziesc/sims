@@ -17,6 +17,9 @@ class Trabajo{
 	method tipoTrabajo(){
 		return tipoTrabajo
 	}
+        method trabajar(unSims){
+                tipoTrabajo.trabajar(unSims)
+        }
 }
 
 
