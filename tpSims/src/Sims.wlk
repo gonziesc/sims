@@ -1,0 +1,176 @@
+import estadoDeAnimo.*
+import atraccion.*
+import celos.*
+import trabajo.*
+import abrazo.*
+import relacion.*
+
+object hombre{}
+object mujer{}
+
+class Sims {
+	var sexo
+	var edad
+	var amigos = []
+	var nivelDeFelicidad
+	var personalidad
+	var dinero
+	var estado = normalidad
+	var pareja
+	var sexoPreferencia
+	var informacion = []
+	var trabajo
+	var relacion = sinPareja
+	constructor(sexoC, felicadadC, edadC, personalidadC, sexoPreferenciaC, trabajoC, dineroC){
+		sexo = sexoC
+		edad = edadC
+		nivelDeFelicidad = felicadadC
+		personalidad = personalidadC
+		sexoPreferencia = sexoPreferenciaC
+		trabajo = trabajoC
+		dinero = dineroC
+	}
+	method pareja(){
+		return pareja
+	}
+	method trabajo(){
+		return trabajo
+	}
+	method relacion(){
+		return relacion
+	}
+	method trabajar(){
+		trabajo.tipoTrabajo().trabajar(self)
+	}
+	method informacion(){
+		return estado.informacion(informacion)
+	}
+	method estado(){
+		return estado
+	}
+	method valoracion(unSims){
+		return personalidad.valorar(self, unSims)
+	}
+	method leInteresa(unSims){
+		return personalidad.leInteresa(self, unSims)
+	}
+	method dinero(){
+		return dinero
+	}
+	method sexo(){
+		return sexo
+	}
+	method sexoPreferencia(){
+		return sexoPreferencia
+	}
+	method personalidad(){
+		return personalidad
+	}
+	method amigos(){
+		return amigos
+	}
+	method edad(){
+		return edad
+	}
+	method nivelDeFelicidad(){
+		return estado.nivelDeFelicidad(nivelDeFelicidad)
+	}
+	method abrazar(unSims, tipoAbrazo){
+		tipoAbrazo.abrazar(self, unSims)
+	}
+	method celar(tipoCelos){
+		tipoCelos.hacerQueTengaCelos(self)
+	}
+	method agregarAmigo(unAmigo){
+		amigos.add(unAmigo)
+	}
+	method trabajaConTodosSusAmigos(){
+		return amigos.all({unAmigo => unAmigo.trabajo() == trabajo})
+	}
+	method cambiarRelacion(unaRelacion){
+		relacion = unaRelacion
+	}
+	method aumentarFelicidad(nivel){
+		nivelDeFelicidad += nivel
+	}
+	method disminuirFelicidad(nivel){
+		nivelDeFelicidad -= nivel
+	}
+	
+	method cambiarDinero(nuevoDinero){
+		dinero += nuevoDinero
+	}
+	method quienesLeGustan(listaPersonas){
+		return listaPersonas.filter({unSims => self.leInteresa(unSims)})
+	}
+	method cambiarEstado(nuevoEstado){
+		if(estado == nuevoEstado) {
+  			error.throwWithMessage("ya tiene este estado")
+  		}
+  		if(not(nuevoEstado == normalidad)) {
+  			self.seLeFueElEstado()
+  		}
+  		estado = nuevoEstado
+	}
+	method seLeFueElEstado(){
+		estado = normalidad
+	}
+	method cambiarPareja(nuevaPareja){
+		pareja = nuevaPareja
+	}
+	method amigosDeFierro(){
+		return amigos.take(4)
+	}
+	method nuevosAmigos(){
+		return amigos.drop(amigos.size() - 4)
+	}
+	method cambiarAmigos(nuevosAmigos){
+		amigos = nuevosAmigos
+	}
+	method esAmigo(unAmigo){
+		return amigos.contains(unAmigo)
+	}
+	method amigoQueMasValora(){
+		return amigos.max({unAmigo => self.valoracion(self)})
+	}
+	method amigoMasPopular(){
+		return amigos.max({unAmigo => unAmigo.popularidad()})
+	}
+	method popularidad(){
+		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})
+	}
+	method esElMasPopular(){
+		var popularidadDelSims = self.popularidad()
+		return amigos.all({unAmigo => popularidadDelSims > unAmigo.popularidad()})
+	}
+	method contarInformacion(unaInformacion){
+		if(not(self.tieneInformacion(unaInformacion))){
+			informacion.add(unaInformacion)
+		}
+	}
+	method cuanConocedor(){
+		return informacion.sum({unaInfo => unaInfo.length()})
+	}
+	method amnesia(){
+		informacion = []
+	}
+	method tieneInformacion(unaInformacion){
+		return informacion.contains(unaInformacion)
+	}
+}
+
+
+object amistad{
+	method hacerAmigo(unSims, otroSims){
+		var aumento = self.calcularNivel(unSims, otroSims)
+		unSims.agregarAmigo(otroSims)
+		unSims.aumentarFelicidad(aumento)
+	}
+	method seHacenAmigos(unSims, otroSims){
+		self.hacerAmigo(unSims, otroSims)
+		self.hacerAmigo(otroSims, unSims)
+	}
+	method calcularNivel(unSims, otroSims){
+		return unSims.valoracion(otroSims)
+	}
+}
