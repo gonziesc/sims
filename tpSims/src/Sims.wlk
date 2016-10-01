@@ -145,8 +145,7 @@ class Sims {
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})
 	}
 	method esElMasPopular(){
-		var popularidadDelSims = self.popularidad()
-		return amigos.all({unAmigo => popularidadDelSims > unAmigo.popularidad()})
+		return amigos.all({unAmigo => self.popularidad() > unAmigo.popularidad()})
 	}
 	method contarInformacion(unaInformacion){
 		if(not(self.tieneInformacion(unaInformacion))){
@@ -172,5 +171,20 @@ class Sims {
 	method nosHacemosAmigos(otroSims){
 		self.hacerAmigo(otroSims)
 		otroSims.hacerAmigo(self)
+	}
+	method prefiereSexoDe(otroSims){
+		return otroSims.sexo() == sexoPreferencia
+	}
+	method leDuplicaElDinero(otroSims){
+		return otroSims.dinero()*2 >= dinero
+	}
+	method esMasPopularQueSusAmigos(otroSims){
+		return self.amigoMasPopular().popularidad() < otroSims.popularidad() 
+	}
+	method esJoven(){
+		return edad > 18 && edad < 29
+	}
+	method esInfeliz(){
+		return self.nivelDeFelicidad() < 200
 	}
 }

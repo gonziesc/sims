@@ -1,46 +1,34 @@
-class Atraccion{
-	method esSexoPreferencia(unSims, otroSims){
-		return unSims.sexoPreferencia() == otroSims.sexo()
-	}
-}
-object interesado inherits Atraccion{
+object interesado{
 	method valorar(unSims, otroSims){
 		return otroSims.dineroDeTodosSusAmigos()*0.1
 	}
 	method leInteresa(unSims, otroSims){
-		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
-		var duplicaDinero = otroSims.dinero()*2 >= unSims.dinero()
-		return sexoPreferencia && duplicaDinero
+		return unSims.prefiereSexoDe(otroSims) && unSims.leDuplicaElDinero(otroSims)
 	}
 }
-object superficial  inherits Atraccion{
+object superficial{
 	method valorar(unSims, otroSims){
 		return otroSims.popularidad()*20
 	}
 	method leInteresa(unSims, otroSims){
-		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
-		var masPopular = unSims.amigoMasPopular().popularidad() < otroSims.popularidad() 
-		var enRangoDeEdad = otroSims.edad() > 18 && otroSims.edad() < 29
-		return sexoPreferencia && masPopular && enRangoDeEdad
+		return unSims.prefiereSexoDe(otroSims) && unSims.esMasPopularQueSusAmigos(otroSims) && otroSims.esJoven()
 	}
 }
 
-object buenazo inherits Atraccion{
+object buenazo{
 	method valorar(unSims, otroSims){
 		return unSims.nivelDeFelicidad()/2
 	}
 	method leInteresa(unSims, otroSims){
-		return self.esSexoPreferencia(unSims, otroSims)
+		return unSims.prefiereSexoDe(otroSims)
 	}
 }
 
-object peleadoConLaVida  inherits Atraccion{
+object peleadoConLaVida{
 	method valorar(unSims, otroSims){
 		return 0
 	}
 	method leInteresa(unSims, otroSims){
-		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
-		var esInfeliz = otroSims.nivelDeFelicidad() < 200
-		return sexoPreferencia && esInfeliz
+		return  unSims.prefiereSexoDe(otroSims) && otroSim.esInfeliz()
 	}
 }
