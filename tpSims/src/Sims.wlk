@@ -172,4 +172,19 @@ class Sims {
 		self.hacerAmigo(otroSims)
 		otroSims.hacerAmigo(self)
 	}
+	method prefiereSexoDe(otroSims){
+		return otroSims.sexo() == sexoPreferencia
+	}
+	method leDuplicaElDinero(otroSims){
+		return otroSims.dinero()*2 >= dinero
+	}
+	method esMasPopularQueSusAmigos(otroSims){
+		return self.amigoMasPopular().popularidad() < otroSims.popularidad() 
+	}
+	method esJoven(){
+		return edad > 18 && edad < 29
+	}
+	method esInfeliz(){
+		return self.nivelDeFelicidad() < 200
+	}
 }
