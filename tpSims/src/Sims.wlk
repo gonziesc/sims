@@ -145,8 +145,7 @@ class Sims {
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})
 	}
 	method esElMasPopular(){
-		var popularidadDelSims = self.popularidad()
-		return amigos.all({unAmigo => popularidadDelSims > unAmigo.popularidad()})
+		return amigos.all({unAmigo => self.popularidad() > unAmigo.popularidad()})
 	}
 	method contarInformacion(unaInformacion){
 		if(not(self.tieneInformacion(unaInformacion))){
