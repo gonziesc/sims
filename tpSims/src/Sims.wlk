@@ -69,7 +69,7 @@ class Sims {
 		return personalidad
 	}
 	method amigos(){
-		return amigos
+		return relacion.amigos(amigos)
 	}
 	method edad(){
 		return edad
