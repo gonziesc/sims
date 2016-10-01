@@ -406,7 +406,7 @@ test "28.c: un sims celoso de su pareja deja de tener al amigo en comun"{
 	var noviazgo = fixture.unaRelacion(unSims, unaSims)
 	noviazgo.comenzarRelacion()
 	unSims.celar(celosPorPareja)
-	assert.equals(4, unSims.amigos().size())
+	assert.equals(4, unSims.amigosVerdaderos().size())
 }
 
 test "29.a: un sims progrmador gana 20 unidades de felicidad y ademas
