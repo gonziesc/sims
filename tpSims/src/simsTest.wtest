@@ -161,7 +161,7 @@ test "4: si pabli se hace amigo de juan, este esta en su lista de amigos"{
 test "5: si pabli y juan se hacen amigos, ambos estan en sus listas de amigos"{
 	var pabli = fixture.unSimsConAmigos()
 	var juan = fixture.unSimsCualquiera()
-	pabli.seHacenAmigos(juan)
+	pabli.nosHacemosAmigos(juan)
 	var sonAmigos = pabli.esAmigo(juan) && juan.esAmigo(pabli)
 	assert.that(sonAmigos)
 }
