@@ -21,14 +21,16 @@ class Sims {
 	var informacion = []
 	var trabajo
 	var relacion = sinPareja
-	constructor(sexoC, felicadadC, edadC, personalidadC, sexoPreferenciaC, trabajoC, dineroC){
-		sexo = sexoC
-		edad = edadC
-		nivelDeFelicidad = felicadadC
-		personalidad = personalidadC
-		sexoPreferencia = sexoPreferenciaC
-		trabajo = trabajoC
-		dinero = dineroC
+	constructor(unSexo, unaFelicidad, unaEdad, unaPersonalidad, 
+		unSexoPreferencia, unTrabajo, unDinero
+	){
+		sexo = unSexo
+		edad = unaEdad
+		nivelDeFelicidad = unaFelicidad
+		personalidad = unaPersonalidad
+		sexoPreferencia = unSexoPreferencia
+		trabajo = unTrabajo
+		dinero = unDinero
 	}
 	method pareja(){
 		return pareja
