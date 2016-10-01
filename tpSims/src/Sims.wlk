@@ -158,6 +158,9 @@ class Sims {
 	method tieneInformacion(unaInformacion){
 		return informacion.contains(unaInformacion)
 	}
+	method dineroDeTodosSusAmigos(){
+		return amigos.sum({unAmigo => unAmigo.dinero()})
+	}
 }
 
 
