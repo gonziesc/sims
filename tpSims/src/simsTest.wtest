@@ -277,7 +277,6 @@ test "18: se pudrio todo entre cruela y pabli porque a pabli le gusta pepa"{
 	var pabli = fixture.unSimsCualquiera()
 	var cruela = fixture.unaSimsConAmigosImposible()
 	var noviazgo = fixture.unaRelacion(pabli, cruela)
-	noviazgo.nuevosAmigos()
 	var sePudrioTodo = noviazgo.sePudreTodo()
 	assert.that(sePudrioTodo)
 }
