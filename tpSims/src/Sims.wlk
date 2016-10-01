@@ -42,7 +42,7 @@ class Sims {
 		return relacion
 	}
 	method trabajar(){
-		trabajo.tipoTrabajo().trabajar(self)
+		trabajo.trabajar(self)
 	}
 	method informacion(){
 		return estado.informacion(informacion)
