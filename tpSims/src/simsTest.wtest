@@ -154,14 +154,14 @@ test "3: el amigo que mas valora un sims buenazo es el primero"{
 test "4: si pabli se hace amigo de juan, este esta en su lista de amigos"{
 	var pabli = fixture.unSimsConAmigos()
 	var juan = fixture.unSimsCualquiera()
-	amistad.hacerAmigo(pabli, juan)
+	pabli.hacerAmigo(juan)
 	assert.that(pabli.esAmigo(juan))
 }
 
 test "5: si pabli y juan se hacen amigos, ambos estan en sus listas de amigos"{
 	var pabli = fixture.unSimsConAmigos()
 	var juan = fixture.unSimsCualquiera()
-	amistad.seHacenAmigos(pabli, juan)
+	pabli.seHacenAmigos(juan)
 	var sonAmigos = pabli.esAmigo(juan) && juan.esAmigo(pabli)
 	assert.that(sonAmigos)
 }
