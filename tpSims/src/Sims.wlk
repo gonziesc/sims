@@ -188,7 +188,7 @@ class Sims {
 		return self.nivelDeFelicidad() < 200
 	}
 	method sacarAmigosMasPopulares(){
-		return amigos.filter({unAmigo => unAmigo.popularidad() <= popularidad})
+		return amigos.filter({unAmigo => unAmigo.popularidad() <= self.popularidad()})
 	}
 	method sacarAmigosDePareja(){
 		return amigos.filter({unAmigo => not(pareja.esAmigo(unAmigo))})
