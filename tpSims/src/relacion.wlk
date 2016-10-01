@@ -5,8 +5,8 @@ class Relacion{
 	constructor(unSimsC, otroSimsC){
 		unSims = unSimsC
 		otroSims = otroSimsC
-		self.comenzarRelacion()
 		self.nuevosAmigos()
+		self.comenzarRelacion()
 	}
 	method comenzarRelacion(){
 		unSims.pareja(otroSims)
