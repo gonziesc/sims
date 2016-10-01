@@ -27,7 +27,7 @@ class Relacion{
 	//Descartamos esta solucion porque tarda bastante en testear (calculamos que tarda
 	//el algoritmo del asSet)
 		}
-	method amigos(){
+	method amigos(unosAmigos){
 		return nuevosAmigos
 	}
 	
