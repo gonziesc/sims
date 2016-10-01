@@ -29,6 +29,6 @@ object peleadoConLaVida{
 		return 0
 	}
 	method leInteresa(unSims, otroSims){
-		return  unSims.prefiereSexoDe(otroSims) && otroSim.esInfeliz()
+		return  unSims.prefiereSexoDe(otroSims) && otroSims.esInfeliz()
 	}
 }
