@@ -161,20 +161,12 @@ class Sims {
 	method dineroDeTodosSusAmigos(){
 		return amigos.sum({unAmigo => unAmigo.dinero()})
 	}
-}
-
-
-object amistad{
-	method hacerAmigo(unSims, otroSims){
-		var aumento = self.calcularNivel(unSims, otroSims)
-		unSims.agregarAmigo(otroSims)
-		unSims.aumentarFelicidad(aumento)
+	method hacerAmigo(otroSims){
+		self.agregarAmigo(otroSims)
+		self.aumentarFelicidad(self.valoracion(otroSims))
 	}
-	method seHacenAmigos(unSims, otroSims){
-		self.hacerAmigo(unSims, otroSims)
-		self.hacerAmigo(otroSims, unSims)
-	}
-	method calcularNivel(unSims, otroSims){
-		return unSims.valoracion(otroSims)
+	method nosHacemosAmigos(otroSims){
+		self.hacerAmigo(otroSims)
+		otroSims.hacerAmigo(self)
 	}
 }
