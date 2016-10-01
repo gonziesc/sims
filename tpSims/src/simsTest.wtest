@@ -236,7 +236,7 @@ test "15: pabli y cruela tienen 8 amigos en la relacion"{
 	var pabli = fixture.unSimsConAmigos()
 	var cruela = fixture.unaSimsConAmigos()
 	var noviazgo = fixture.unaRelacion(pabli, cruela)	
-	var circulo = noviazgo.amigos()
+	var circulo = pabli.amigos()
 	assert.equals(6, circulo.size())
 }
 
