@@ -187,4 +187,13 @@ class Sims {
 	method esInfeliz(){
 		return self.nivelDeFelicidad() < 200
 	}
+	method sacarAmigosMasPopulares(){
+		return amigos.filter({unAmigo => unAmigo.popularidad() <= popularidad})
+	}
+	method sacarAmigosDePareja(){
+		return amigos.filter({unAmigo => not(pareja.esAmigo(unAmigo))})
+	}
+	method sacarAmigosConMasDinero(){
+		return amigos.filter({unAmigo => unAmigo.dinero() <= dinero})
+	}
 }
