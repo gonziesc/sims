@@ -71,6 +71,10 @@ class Sims {
 	method amigos(){
 		return relacion.amigos(amigos)
 	}
+	method amigosVerdaderos(){
+		return amigos
+		//solo para test 28.c
+	}
 	method edad(){
 		return edad
 	}
