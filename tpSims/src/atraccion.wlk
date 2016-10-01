@@ -5,8 +5,7 @@ class Atraccion{
 }
 object interesado inherits Atraccion{
 	method valorar(unSims, otroSims){
-		var dineroAmigos =  otroSims.amigos().sum({unAmigo => unAmigo.dinero()})
-		return dineroAmigos*0.1
+		return otroSims.dineroDeTodosSusAmigos()*0.1
 	}
 	method leInteresa(unSims, otroSims){
 		var sexoPreferencia = self.esSexoPreferencia(unSims, otroSims)
