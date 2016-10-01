@@ -9,10 +9,10 @@ class Relacion{
 		self.nuevosAmigos()
 	}
 	method comenzarRelacion(){
-		unSims.cambiarPareja(otroSims)
-		otroSims.cambiarPareja(unSims)
-		unSims.cambiarRelacion(self)
-		otroSims.cambiarRelacion(self)
+		unSims.pareja(otroSims)
+		otroSims.pareja(unSims)
+		unSims.relacion(self)
+		otroSims.relacion(self)
 	}
 	method estaEnRelacion(unSimsCualquiera){
 		return unSimsCualquiera == unSims || unSimsCualquiera == otroSims
@@ -41,10 +41,10 @@ class Relacion{
 		return not(self.funcionaRelacion()) && self.algunoPuedeSerInfiel()
 	}
 	method terminarRelacion(){
-		unSims.cambiarPareja(soltero)
-		otroSims.cambiarPareja(soltero)
-		unSims.cambiarRelacion(sinPareja)
-		otroSims.cambiarRelacion(sinPareja)
+		unSims.pareja(soltero)
+		otroSims.pareja(soltero)
+		unSims.relacion(sinPareja)
+		otroSims.relacion(sinPareja)
 	}
 	method reiniciarRelacion(){
 		unSims.relacion().terminarRelacion()

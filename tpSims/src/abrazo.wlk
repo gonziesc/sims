@@ -9,10 +9,10 @@ object abrazoComun{
 object abrazoProlongado{
 	method abrazar(unSims, otroSims){
 		if(otroSims.leInteresa(unSims)){
-			otroSims.cambiarEstado(soniador)
+			otroSims.estado(soniador)
 		}
 		else{
-			otroSims.cambiarEstado(incomodidad)
+			otroSims.estado(incomodidad)
 		}
 	}
 }

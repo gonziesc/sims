@@ -33,7 +33,7 @@ class Trabajar{
 object copado inherits Trabajar{
 	 method trabajar(unSims){
 	 	self.porSerBuenazo(unSims)
-	 	unSims.cambiarDinero(unSims.trabajo().plata())
+	 	unSims.aumentarDinero(unSims.trabajo().plata())
 	 	unSims.aumentarFelicidad(unSims.trabajo().unidadesFelicidad())
 	 }
 }	 
@@ -42,7 +42,7 @@ object mercenario inherits Trabajar {
 	method trabajar(unSims){
 		self.porSerBuenazo(unSims)
 		var dineroGanado = 100 + unSims.dinero()*0.02
-		unSims.cambiarDinero(dineroGanado)
+		unSims.aumentarDinero(dineroGanado)
 	}	
 }	
 
@@ -50,7 +50,7 @@ object aburrido inherits Trabajar{
 	method trabajar(unSims)
 	{
 		self.porSerBuenazo(unSims)
-		unSims.cambiarDinero(unSims.trabajo().plata())
+		unSims.aumentarDinero(unSims.trabajo().plata())
 	 	unSims.disminuirFelicidad(unSims.trabajo().unidadesFelicidad())
 	}
 }

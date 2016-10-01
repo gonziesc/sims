@@ -366,19 +366,19 @@ vacia"{
 
 test "26.a: un sims soniador de 1000 de felicidad ahora tiene 2000"{
 	var unSims = fixture.unSimsCualquiera()
-	unSims.cambiarEstado(soniador)
+	unSims.estado(soniador)
 	assert.equals(2000, unSims.nivelDeFelicidad())
 }
 test "26.b: un sims incomodo de 1000 de felicidad ahora tiene 800"{
 	var unSims = fixture.unSimsCualquiera()
-	unSims.cambiarEstado(soniador)
-	unSims.cambiarEstado(incomodidad)
+	unSims.estado(soniador)
+	unSims.estado(incomodidad)
 	assert.equals(800, unSims.nivelDeFelicidad())
 }
 
 test "27: un sims que estaba incomodo de 1000 de felicidad ahora tiene 1000 otra vez"{
 	var unSims = fixture.unSimsCualquiera()
-	unSims.cambiarEstado(incomodidad)
+	unSims.estado(incomodidad)
 	unSims.seLeFueElEstado()
 	assert.equals(1000, unSims.nivelDeFelicidad())
 }

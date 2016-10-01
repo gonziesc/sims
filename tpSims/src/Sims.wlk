@@ -89,7 +89,7 @@ class Sims {
 	method trabajaConTodosSusAmigos(){
 		return amigos.all({unAmigo => unAmigo.trabajo() == trabajo})
 	}
-	method cambiarRelacion(unaRelacion){
+	method relacion(unaRelacion){
 		relacion = unaRelacion
 	}
 	method aumentarFelicidad(nivel){
@@ -98,14 +98,13 @@ class Sims {
 	method disminuirFelicidad(nivel){
 		nivelDeFelicidad -= nivel
 	}
-	
-	method cambiarDinero(nuevoDinero){
+	method aumentarDinero(nuevoDinero){
 		dinero += nuevoDinero
 	}
 	method quienesLeGustan(listaPersonas){
 		return listaPersonas.filter({unSims => self.leInteresa(unSims)})
 	}
-	method cambiarEstado(nuevoEstado){
+	method estado(nuevoEstado){
 		if(estado == nuevoEstado) {
   			error.throwWithMessage("ya tiene este estado")
   		}
@@ -117,7 +116,7 @@ class Sims {
 	method seLeFueElEstado(){
 		estado = normalidad
 	}
-	method cambiarPareja(nuevaPareja){
+	method pareja(nuevaPareja){
 		pareja = nuevaPareja
 	}
 	method amigosDeFierro(){
@@ -126,7 +125,7 @@ class Sims {
 	method nuevosAmigos(){
 		return amigos.drop(amigos.size() - 4)
 	}
-	method cambiarAmigos(nuevosAmigos){
+	method amigos(nuevosAmigos){
 		amigos = nuevosAmigos
 	}
 	method esAmigo(unAmigo){

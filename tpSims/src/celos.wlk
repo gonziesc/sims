@@ -5,7 +5,7 @@ object celosPorPopularidad inherits Celos{
 	{
 		self.bajarFelicidad(unSims)
 		var nuevosAmigos = unSims.amigos().filter({unAmigo => unAmigo.popularidad() <= unSims.popularidad()})
-		unSims.cambiarAmigos(nuevosAmigos)
+		unSims.amigos(nuevosAmigos)
 		
 	}
 }
@@ -14,7 +14,7 @@ object celosPorPareja inherits Celos{
 	{
 		self.bajarFelicidad(unSims)
 		var nuevosAmigos = unSims.amigos().filter({unAmigo => not((unSims.pareja()).esAmigo(unAmigo))})
-		unSims.cambiarAmigos(nuevosAmigos)
+		unSims.amigos(nuevosAmigos)
 	}
 }
 object celosPorPlata inherits Celos{
@@ -22,7 +22,7 @@ object celosPorPlata inherits Celos{
 	{
 		self.bajarFelicidad(unSims)
 		var nuevosAmigos = unSims.amigos().filter({unAmigo => unAmigo.dinero() <= unSims.dinero()})
-		unSims.cambiarAmigos(nuevosAmigos)
+		unSims.amigos(nuevosAmigos)
 	}
 }
 
