@@ -64,6 +64,9 @@ class Relacion{
 object sinPareja{
 	method terminarRelacion(){}
 	method ComenzarRelacion(){}
+	method amigos(susAmigos){
+		return susAmigos
+	}
 }
 
 object soltero {}
