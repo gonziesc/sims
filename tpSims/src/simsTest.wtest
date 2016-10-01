@@ -431,3 +431,4 @@ test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
 //30 Si, evaluar si es Buenazo se hace para los 3 tipos de trabajo
 //Se podría arreglar con Override haciendo el metodo trabajar
 //en la clase Trabajar, lo vimos la clase del 12/09
+//hecho en el arreglo

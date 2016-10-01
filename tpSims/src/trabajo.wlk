@@ -24,37 +24,38 @@ class Trabajo{
 
 
 class Trabajar{
-	method porSerBuenazo(unSims){
-		var esBuenazo = unSims.personalidad() == buenazo
-		var trabajaConSusAmigos = unSims.trabajaConTodosSusAmigos()
-		if(esBuenazo && trabajaConSusAmigos){
-			unSims.aumentarFelicidad(unSims.nivelDeFelicidad()*0.1)
-		}
+	method trabajar(unSims){
+		unSims.personalidad().trabajar(unSims)
+		unSims.aumentarDinero(self.dinero(unSims))
+	 	unSims.aumentarFelicidad(self.unidadesFelicidad(unSims))
 	}
+	method dinero(unSims){return 0}
+	method unidadesFelicidad(unSims){return 0}
+	//solo para que wollok no tire error
 }
 
 object copado inherits Trabajar{
-	 method trabajar(unSims){
-	 	self.porSerBuenazo(unSims)
-	 	unSims.aumentarDinero(unSims.trabajo().plata())
-	 	unSims.aumentarFelicidad(unSims.trabajo().unidadesFelicidad())
-	 }
+	override method dinero(unSims){
+		return unSims.trabajo().plata()
+	}
+	override method unidadesFelicidad(unSims){
+		return unSims.trabajo().unidadesFelicidad()
+	}
+	
 }	 
 
 object mercenario inherits Trabajar {
-	method trabajar(unSims){
-		self.porSerBuenazo(unSims)
-		var dineroGanado = 100 + unSims.dinero()*0.02
-		unSims.aumentarDinero(dineroGanado)
-	}	
+	override method dinero(unSims){
+		return 100 + unSims.dinero()*0.02
+	}
 }	
 
 object aburrido inherits Trabajar{
-	method trabajar(unSims)
-	{
-		self.porSerBuenazo(unSims)
-		unSims.aumentarDinero(unSims.trabajo().plata())
-	 	unSims.disminuirFelicidad(unSims.trabajo().unidadesFelicidad())
+	override method dinero(unSims){
+		return unSims.trabajo().plata()
+	}
+	override method unidadesFelicidad(unSims){
+		return -unSims.trabajo().unidadesFelicidad()
 	}
 }
 object desocupado{

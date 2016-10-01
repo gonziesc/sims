@@ -5,6 +5,9 @@ object interesado{
 	method leInteresa(unSims, otroSims){
 		return unSims.prefiereSexoDe(otroSims) && unSims.leDuplicaElDinero(otroSims)
 	}
+	method trabajar(unSims){
+		
+	}
 }
 object superficial{
 	method valorar(unSims, otroSims){
@@ -12,6 +15,9 @@ object superficial{
 	}
 	method leInteresa(unSims, otroSims){
 		return unSims.prefiereSexoDe(otroSims) && unSims.esMasPopularQueSusAmigos(otroSims) && otroSims.esJoven()
+	}
+	method trabajar(unSims){
+		
 	}
 }
 
@@ -22,6 +28,11 @@ object buenazo{
 	method leInteresa(unSims, otroSims){
 		return unSims.prefiereSexoDe(otroSims)
 	}
+	method trabajar(unSims){
+		if(unSims.trabajaConTodosSusAmigos()){
+			unSims.aumentarFelicidad(unSims.nivelDeFelicidad()*0.1)
+		}
+	}
 }
 
 object peleadoConLaVida{
@@ -30,5 +41,8 @@ object peleadoConLaVida{
 	}
 	method leInteresa(unSims, otroSims){
 		return  unSims.prefiereSexoDe(otroSims) && otroSims.esInfeliz()
+	}
+	method trabajar(unSims){
+		
 	}
 }
