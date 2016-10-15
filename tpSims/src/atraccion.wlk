@@ -1,3 +1,4 @@
+
 object interesado{
 	method valorar(unSims, otroSims){
 		return otroSims.dineroDeTodosSusAmigos()*0.1
@@ -7,6 +8,12 @@ object interesado{
 	}
 	method trabajar(unSims){
 		
+	}
+	method cuantoEstaDispuestoAPrestarle(unSims, otroSims){
+		if(self.valorar(unSims, otroSims)*10 > otroSims.dinero()){
+			return otroSims.dinero()
+		} 
+		else {return self.valorar(unSims, otroSims)*10}
 	}
 }
 object superficial{
@@ -18,6 +25,9 @@ object superficial{
 	}
 	method trabajar(unSims){
 		
+	}
+	method cuantoEstaDispuestoAPrestarle(unSims, otroSims){
+		return self.valorar(unSims, otroSims)*10
 	}
 }
 
@@ -33,6 +43,9 @@ object buenazo{
 			unSims.aumentarFelicidad(unSims.nivelDeFelicidad()*0.1)
 		}
 	}
+	method cuantoEstaDispuestoAPrestarle(unSims, otroSims){
+		return self.valorar(unSims, otroSims)*10
+	}
 }
 
 object peleadoConLaVida{
@@ -44,5 +57,8 @@ object peleadoConLaVida{
 	}
 	method trabajar(unSims){
 		
+	}
+	method cuantoEstaDispuestoAPrestarle(unSims, otroSims){
+		return self.valorar(unSims, otroSims)*10
 	}
 }

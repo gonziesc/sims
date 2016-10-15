@@ -437,7 +437,53 @@ test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
 //en la clase Trabajar, lo vimos la clase del 12/09
 //hecho en el arreglo
 
+test "31.a: un sims buenazo de felicidad 1000 valora a otro 
+en 500, entonces le puede presta 5000"{
+	var gonza = fixture.unSimsCualquiera()
+	var lauti = fixture.unSimsCualquiera()
+	var cuantoLePresta = gonza.cuantoEstaDispuestoAPrestarle(lauti)
+	assert.equals(5000,cuantoLePresta)
+}
 
+
+test "31.b: un sims superficial valora a otro de popularidad 3000
+en 6000, entonces le puede presta 60000"{
+	var pabli = fixture.unSimsConAmigos()
+	var lauti = fixture.unSimsSuperficial()
+	var cuantoLePresta = lauti.cuantoEstaDispuestoAPrestarle(pabli)
+	assert.equals(600000,cuantoLePresta)
+}
+
+test "32.a: un sims interesado valora 300 a otro sims cuya suma 
+de dinero de sus amigos es 3000, el otro sims tiene 1000 de dinero y le pide 2000, falla"{
+	
+	var unSimsInteresado = fixture.unSimsInteresado()
+	var pabli = fixture.unSimsConAmigos()
+	assert.throwsException({unSimsInteresado.prestarDinero(pabli, 2000)})
+}
+
+test "32.b: a un sims de 1000 le piden 10.000, falla"{
+	
+	var unSims = fixture.unSimsCualquiera()
+	var pabli = fixture.unSimsConAmigos()
+	assert.throwsException({unSims.prestarDinero(pabli, 10000)})
+}
+
+test "32.c: un sims buenazo de felicidad 1000 valora a otro 
+en 500, entonces le puede presta 5000, le pide 500"{
+	var gonza = fixture.unSimsCualquiera()
+	var lauti = fixture.unSimsCualquiera()
+	gonza.prestarDinero(lauti, 500)
+	assert.equals(1500,lauti.dinero())
+}
+
+test "32.d: un sims buenazo de felicidad 1000 valora a otro 
+en 500, entonces le puede presta 5000, le pide 500, se queda con 500"{
+	var gonza = fixture.unSimsCualquiera()
+	var lauti = fixture.unSimsCualquiera()
+	gonza.prestarDinero(lauti, 500)
+	assert.equals(500,gonza.dinero())
+}
 
 test "41.a: un sims de 20 anios cumple y ahora tiene 21"{
 	var unSims = fixture.unSimsCualquiera()

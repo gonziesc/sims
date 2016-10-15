@@ -199,4 +199,17 @@ class Sims {
 	method esSuCumpleanios(){
 		edad +=1
 	}
+	method prestarDinero(otroSims, unMonto){
+		if(dinero >= unMonto && dinero <= self.cuantoEstaDispuestoAPrestarle(otroSims)){
+			dinero -= unMonto
+			otroSims.aumentarDinero(unMonto)
+		}
+		else{
+			error.throwWithMessage("no te presto ni loco")
+		}
+	}
+	method cuantoEstaDispuestoAPrestarle(otroSims){
+		return personalidad.cuantoEstaDispuestoAPrestarle(self, otroSims)
+	}
+	
 }
