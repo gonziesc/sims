@@ -485,6 +485,37 @@ en 500, entonces le puede presta 5000, le pide 500, se queda con 500"{
 	assert.equals(500,gonza.dinero())
 }
 
+test "36.a: lauti se comio a ornella es privado"{
+	var lauti = fixture.unSimsConAmigos()
+	lauti.contarInformacion("me comi a ornella")
+	assert.that(lauti.esPrivada("me comi a ornella"))
+}
+test "36.b: gonza sabe que lauti se comio a ornella, ya no es privado"{
+	var lauti = fixture.unSimsConAmigos()
+	var gonza = fixture.unSimsCualquiera()
+	lauti.agregarAmigo(gonza)
+	lauti.contarInformacion("lauti se comio a ornella")
+	gonza.contarInformacion("lauti se comio a ornella")
+	assert.that(not(lauti.esPrivada("lauti se comio a ornella")))
+}
+test "37: gonza difunde que lauti se comio a ornella, su amigo juan lo sabe"{
+	var gonza = fixture.unSimsConAmigos()
+	var juan = fixture.unSimsCualquiera()
+	gonza.agregarAmigo(juan)
+	gonza.difundirATodos("lauti se comio a ornella")
+	assert.that(juan.tieneInformacion("lauti se comio a ornella"))
+}
+test "38:juan desparrama el chisme de lauti, martin ahora lo sabe"{
+	var lauti = fixture.unSimsConAmigos()
+	var juan = fixture.unSimsCualquiera()
+	var martin = fixture.unSimsCualquiera()
+	juan.agregarAmigo(martin)
+	lauti.contarInformacion("lauti se comio a ornella")
+	juan.difundirChisme(lauti,"lauti se comio a ornella")
+	assert.that(martin.tieneInformacion("lauti se comio a ornella"))
+}
+
+
 test "41.a: un sims de 20 anios cumple y ahora tiene 21"{
 	var unSims = fixture.unSimsCualquiera()
 	unSims.esSuCumpleanios()
