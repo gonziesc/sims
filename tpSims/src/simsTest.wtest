@@ -5,9 +5,13 @@ import celos.*
 import trabajo.*
 import abrazo.*
 import relacion.*
+import vims.*
 object fixture {
 	method unSimsCualquiera() {
 		return new Sims(hombre,1000,20,buenazo,mujer, programador, 1000)
+	}
+	method unVimsCualquiera() {
+		return new Vims(hombre,1000,buenazo,mujer, programador, 1000)
 	}
 	method unSimsOficinista() {
 		return new Sims(hombre,1000,20,interesado,mujer, oficinista, 1000)
@@ -432,3 +436,20 @@ test "29.c: un sims oficinista pierde 20 unidades de felicidad, tiene 980"{
 //Se podría arreglar con Override haciendo el metodo trabajar
 //en la clase Trabajar, lo vimos la clase del 12/09
 //hecho en el arreglo
+
+
+
+test "41.a: un sims de 20 anios cumple y ahora tiene 21"{
+	var unSims = fixture.unSimsCualquiera()
+	unSims.esSuCumpleanios()
+	assert.equals(21, unSims.edad())
+}
+
+test "41.b: un vims cumple anios varias veces y sigue teniendo 18"{
+	var unVims = fixture.unVimsCualquiera()
+	5.times({unVims.esSuCumpleanios()})
+	assert.equals(18, unVims.edad())
+}
+
+//42 si un Vims muerde a un Sims, se crea un nuevo objeto de clase Vims 
+//pasando por parametro las caracteristicas del Sims, y ningun cambio haria falta

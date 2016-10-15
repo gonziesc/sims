@@ -196,4 +196,7 @@ class Sims {
 	method sacarAmigosConMasDinero(){
 		return amigos.filter({unAmigo => unAmigo.dinero() <= dinero})
 	}
+	method esSuCumpleanios(){
+		edad +=1
+	}
 }
