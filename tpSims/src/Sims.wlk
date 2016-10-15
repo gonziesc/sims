@@ -161,6 +161,26 @@ class Sims {
 	method tieneInformacion(unaInformacion){
 		return informacion.contains(unaInformacion)
 	}
+	method difundirInformacion(unaInformacion){
+		if(not(self.tieneInformacion(unaInformacion))){
+			informacion.add(unaInformacion)
+			self.difundirATodos(unaInformacion)
+		}
+	}
+	method difundirATodos(unaInformacion){
+		amigos.forEach({unAmigo => unAmigo.contarInformacion(unaInformacion)})
+	}
+	method esPrivada(unaInformacion){
+		return self.tieneInformacion(unaInformacion) && self.ningunAmigoTieneLaInformacion(unaInformacion)
+	}
+	method difundirChisme(unSims, unaInformacion){
+		if(unSims.esPrivada(unaInformacion)){
+			self.difundirATodos(unaInformacion)
+		}
+	}
+	method ningunAmigoTieneLaInformacion(unaInformacion){
+		return not(amigos.any({unAmigo => unAmigo.tieneInformacion(unaInformacion)}))
+	}
 	method dineroDeTodosSusAmigos(){
 		return amigos.sum({unAmigo => unAmigo.dinero()})
 	}
