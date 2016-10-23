@@ -29,7 +29,7 @@ class Trabajar{
 		unSims.personalidad().trabajar(unSims)
 		unSims.aumentarDinero(self.dinero(unSims))
 	 	unSims.aumentarFelicidad(self.unidadesFelicidad(unSims))
-		unSims.cambiarEstado(normalidad)
+		unSims.estado(normalidad)
 	}
 	method dinero(unSims){return 0}
 	method unidadesFelicidad(unSims){return 0}
