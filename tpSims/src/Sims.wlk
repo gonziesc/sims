@@ -71,6 +71,9 @@ class Sims {
 	method amigos(){
 		return relacion.amigos(amigos)
 	}
+	method cantidadAmigos(){
+		return amigos().size()
+	}
 	method amigosVerdaderos(){
 		return amigos
 		//solo para test 28.c
