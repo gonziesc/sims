@@ -1,4 +1,5 @@
 import atraccion.*
+import estadoDeAnimo.*
 class Trabajo{
 	var plataTrabajo
 	var unidadesFelicidad
