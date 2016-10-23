@@ -9,7 +9,7 @@ class Relacion{
 		self.comenzarRelacion()
 	}
 	method comenzarRelacion(){
-		if(self.algunoEstaEnRelacion(unSims, otroSims) || self.algunoEsMenor(unSims, otroSims)){
+		if(self.algunoEstaEnRelacion() || self.algunoEsMenor(){
 			error.throwWithMessage("no se puede iniciar relacion")
 		}
 		unSims.pareja(otroSims)
@@ -17,12 +17,11 @@ class Relacion{
 		unSims.relacion(self)
 		otroSims.relacion(self)
 	}
-	method algunoEstaEnRelacion(unSims, otroSims){
+	method algunoEstaEnRelacion(){
 		return unSims.pareja() != soltero || otroSims.pareja()!= soltero
 	}
 
-
-	method algunoEsMenor(unSims, otroSims){
+	method algunoEsMenor(){
 		return unSims.edad() < 17 || otroSims.edad() < 17
 	}
 	method estaEnRelacion(unSimsCualquiera){
