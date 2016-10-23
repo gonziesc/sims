@@ -28,11 +28,14 @@ class Trabajar{
 		unSims.personalidad().trabajar(unSims)
 		unSims.aumentarDinero(self.dinero(unSims))
 	 	unSims.aumentarFelicidad(self.unidadesFelicidad(unSims))
+		unSims.cambiarEstado(normalidad)
 	}
 	method dinero(unSims){return 0}
 	method unidadesFelicidad(unSims){return 0}
 	//solo para que wollok no tire error
 }
+
+
 
 object copado inherits Trabajar{
 	override method dinero(unSims){
@@ -44,19 +47,40 @@ object copado inherits Trabajar{
 	
 }	 
 
-object mercenario inherits Trabajar {
+class TrabajoMercenario inherits Trabajar {
 	override method dinero(unSims){
 		return 100 + unSims.dinero()*0.02
 	}
+}
+object mercenario inherits TrabajoMercenario {
+} 
+
+object mercenarioSocial inherits TrabajoMercenario {
+	override method dinero(unSims){
+		return super.dinero(unSims) + self.comision(unSims)
+	}
+	method comision(unSims){
+		return unSims.cantidadAmigos()
+	} 
 }	
 
-object aburrido inherits Trabajar{
+class TrabajoAburrido inherits Trabajar{
 	override method dinero(unSims){
 		return unSims.trabajo().plata()
 	}
 	override method unidadesFelicidad(unSims){
 		return -unSims.trabajo().unidadesFelicidad()
 	}
+}
+
+object aburridoHastaLaMuerte inherits TrabajoAburrido {
+	var n = 10
+	override method unidadesFelicidad(unSims){
+		return super.unidadesFelicidad(unSims)*n
+	}
+}
+
+object aburrido inherits TrabajoAburrido {
 }
 object desocupado{
 	method trabajar(unSims, unTrabajo)
@@ -68,3 +92,5 @@ object desocupado{
 object programador inherits Trabajo(20, 20, copado){}
 object oficinista inherits Trabajo(20, 20, aburrido){}
 object barraBrava inherits Trabajo(20, 20, mercenario){}
+object oficinistaFullTime inherits Trabajo(20, 20, aburridoHastaLaMuerte){}
+object barraBravaConAmigos inherits Trabajo(20, 20, mercenarioSocial){}
