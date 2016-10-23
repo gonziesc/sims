@@ -72,7 +72,7 @@ class Sims {
 		return relacion.amigos(amigos)
 	}
 	method cantidadAmigos(){
-		return amigos().size()
+		return self.amigos().size()
 	}
 	method amigosVerdaderos(){
 		return amigos
