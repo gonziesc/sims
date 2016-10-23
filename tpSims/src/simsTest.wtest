@@ -564,7 +564,7 @@ test "38:juan desparrama el chisme de lauti, martin ahora lo sabe"{
 }
 
 test "39.a: rial te informa escandalo"{
-	assert.equals("Escándalo", rial.informar())
+	assert.equals("Escandalo", rial.informar())
 }
 
 test "39.b: un libro con un solo capitulo te informa ese capitulo"{
