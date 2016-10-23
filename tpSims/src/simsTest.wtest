@@ -587,7 +587,7 @@ test "40: un Sims se informa de sus fuentes y sabe todo"{
 	unSims.agregarFuenteDeInformacion(elAleph)
 	unSims.agregarFuenteDeInformacion(gonza)
 	unSims.informarse()
-	var sabeTodo = unSims.tieneInformacion("hola que tal") && unSims.tieneInformacion("Escándalo") && unSims.tieneInformacion("Toto") 
+	var sabeTodo = unSims.tieneInformacion("hola que tal") && unSims.tieneInformacion("Escandalo") && unSims.tieneInformacion("Toto") 
 	&& unSims.tieneInformacion("lauti se comio a ornella") 
 	assert.that(sabeTodo) 
 }
