@@ -7,6 +7,12 @@ import abrazo.*
 import relacion.*
 import vims.*
 object fixture {
+	method unSimsSuperficialConAmigos() {
+		return new Sims(hombre,1000,20,superficial,mujer, barraBravaConAmigos, 1000)
+	}
+	method unSimsOficinistaFullTime() {
+		return new Sims(hombre,1000,20,interesado,mujer, oficinistaFullTime, 1000)
+	}
 	method unSimsCualquiera() {
 		return new Sims(hombre,1000,20,buenazo,mujer, programador, 1000)
 	}
