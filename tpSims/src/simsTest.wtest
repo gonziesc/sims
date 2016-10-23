@@ -13,6 +13,9 @@ object fixture {
 	method unSimsOficinistaFullTime() {
 		return new Sims(hombre,1000,20,interesado,mujer, oficinistaFullTime, 1000)
 	}
+	method unaSimsMenor() {
+		return new Sims(mujer,1000,15,buenazo,hombre, programador, 1000)
+	}
 	method unSimsCualquiera() {
 		return new Sims(hombre,1000,20,buenazo,mujer, programador, 1000)
 	}
@@ -511,6 +514,20 @@ test "34.a: un sims va a trabajar y vuelve a estado normal"{
 	unSims.estado(incomodidad)
 	unSims.trabajar()
 	assert.equals(normalidad, unSims.estado())
+}
+
+test "35.a: gonza y pau arrancan una relacion, se tienen como pareja, ornella no puede iniciar una relacion con lauti"{
+	var gonza = fixture.unSimsCualquiera()
+	var pau = fixture.unaSimsCualquiera()
+	var noviazgo = fixture.unaRelacion(gonza, pau)
+	var ornella = fixture.unaSimsCualquiera()	
+	assert.throwsException({fixture.unaRelacion(gonza, ornella)})
+}
+
+test "35.b: juani ferro no puede iniciar una relacion con giana"{
+	var juani = fixture.unSimsCualquiera()
+	var giani = fixture.unaSimsMenor()	
+	assert.throwsException({fixture.unaRelacion(juani, giana)})
 }
 
 test "36.a: lauti se comio a ornella es privado"{
