@@ -6,7 +6,11 @@ import trabajo.*
 import abrazo.*
 import relacion.*
 import vims.*
+import fuentesDeInformacion.*
 object fixture {
+	method unLibro(){
+		return new Libro()
+	}
 	method unSimsSuperficialConAmigos() {
 		return new Sims(hombre,1000,20,superficial,mujer, barraBravaConAmigos, 1000)
 	}
@@ -559,6 +563,34 @@ test "38:juan desparrama el chisme de lauti, martin ahora lo sabe"{
 	assert.that(martin.tieneInformacion("lauti se comio a ornella"))
 }
 
+test "39.a: rial te informa escandalo"{
+	assert.equals("Escándalo", rial.informar())
+}
+
+test "39.b: un libro con un solo capitulo te informa ese capitulo"{
+	var elAleph = fixture.unLibro()
+	unLibro.agregarCapitulo("hola que tal")
+	assert.equals("hola que tal", elAleph.informar())
+}
+
+test "40: un Sims se informa de sus fuentes y sabe todo"{
+	var unSims = fixture.unSimsCualquiera()
+	var gonza = fixture.unSimsCualquiera()
+	var lauti = fixture.unSimsConAmigos()
+	lauti.contarInformacion("lauti se comio a ornella")
+	lauti.agregarAmigo(gonza)
+	gonza.agregarAmigo(lauti)
+	var elAleph = fixture.unLibro()
+	unLibro.agregarCapitulo("hola que tal")
+	unSims.agregarFuenteDeInformacion(rial)
+	unSims.agregarFuenteDeInformacion(tinelli)
+	unSims.agregarFuenteDeInformacion(elAleph)
+	unSims.agregarFuenteDeInformacion(gonza)
+	unSims.informarse()
+	var sabeTodo = unSims.tieneInformacion("hola que tal") && unSims.tieneInformacion("Escándalo") && unSims.tieneInformacion("Toto") 
+	&& unSims.tieneInformacion("lauti se comio a ornella") 
+	assert.that(sabeTodo) 
+}
 
 test "41.a: un sims de 20 anios cumple y ahora tiene 21"{
 	var unSims = fixture.unSimsCualquiera()
