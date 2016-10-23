@@ -112,9 +112,7 @@ class Sims {
 		return listaPersonas.filter({unSims => self.leInteresa(unSims)})
 	}
 	method estado(nuevoEstado){
-		if(estado == nuevoEstado) {
-  			error.throwWithMessage("ya tiene este estado")
-  		}
+
   		if(not(nuevoEstado == normalidad)) {
   			self.seLeFueElEstado()
   		}
