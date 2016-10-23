@@ -58,7 +58,7 @@ object mercenario inherits TrabajoMercenario {
 
 object mercenarioSocial inherits TrabajoMercenario {
 	override method dinero(unSims){
-		return super.dinero(unSims) + self.comision(unSims)
+		return 100 + unSims.dinero()*0.02 + self.comision(unSims)
 	}
 	method comision(unSims){
 		return unSims.cantidadAmigos()
@@ -77,7 +77,7 @@ class TrabajoAburrido inherits Trabajar{
 object aburridoHastaLaMuerte inherits TrabajoAburrido {
 	var n = 10
 	override method unidadesFelicidad(unSims){
-		return super.unidadesFelicidad(unSims)*n
+		return -unSims.trabajo().unidadesFelicidad()*n
 	}
 }
 
