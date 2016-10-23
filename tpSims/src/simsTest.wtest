@@ -569,7 +569,7 @@ test "39.a: rial te informa escandalo"{
 
 test "39.b: un libro con un solo capitulo te informa ese capitulo"{
 	var elAleph = fixture.unLibro()
-	unLibro.agregarCapitulo("hola que tal")
+	elAleph.agregarCapitulo("hola que tal")
 	assert.equals("hola que tal", elAleph.informar())
 }
 
@@ -581,7 +581,7 @@ test "40: un Sims se informa de sus fuentes y sabe todo"{
 	lauti.agregarAmigo(gonza)
 	gonza.agregarAmigo(lauti)
 	var elAleph = fixture.unLibro()
-	unLibro.agregarCapitulo("hola que tal")
+	elAleph.agregarCapitulo("hola que tal")
 	unSims.agregarFuenteDeInformacion(rial)
 	unSims.agregarFuenteDeInformacion(tinelli)
 	unSims.agregarFuenteDeInformacion(elAleph)
