@@ -485,6 +485,28 @@ en 500, entonces le puede presta 5000, le pide 500, se queda con 500"{
 	assert.equals(500,gonza.dinero())
 }
 
+test "33.a: un sims barraBravaSocial gana 100 unidades de dinero + 20, el 2%
+de lo que ya tiene, tiene 1120, mas comision por cantidad de amigos, tiene 1121"{
+	var unSims = fixture.unSimsSuperficialConAmigos()
+	var unAmigo = fixture.unSimsCualquiera()
+	unSims.agregarAmigo(unAmigo)
+	unSims.trabajar()
+	assert.equals(1121, unSims.dinero())
+}
+
+test "33.b: un sims oficinista pierde 20 unidades de felicidad, si es full time, pierde 200, tiene 800"{
+	var unSims = fixture.unSimsOficinistaFullTime()
+	unSims.trabajar()
+	assert.equals(800, unSims.nivelDeFelicidad())
+}
+
+test "34.a: un sims va a trabajar y vuelve a estado normal"{
+	var unSims = fixture.unSimsOficinistaFullTime()
+	unSims.estado(incomodidad)
+	unSims.trabajar()
+	assert.equals(normalidad, unSims.estado())
+}
+
 test "36.a: lauti se comio a ornella es privado"{
 	var lauti = fixture.unSimsConAmigos()
 	lauti.contarInformacion("me comi a ornella")
