@@ -416,7 +416,6 @@ test "28.c: un sims celoso de su pareja deja de tener al amigo en comun"{
 	unSims.agregarAmigo(estaEnElmedio)
 	unaSims.agregarAmigo(estaEnElmedio)
 	var noviazgo = fixture.unaRelacion(unSims, unaSims)
-	noviazgo.comenzarRelacion()
 	unSims.celar(celosPorPareja)
 	assert.equals(4, unSims.amigosVerdaderos().size())
 }
@@ -526,7 +525,7 @@ test "35.a: gonza y pau arrancan una relacion, se tienen como pareja, ornella no
 
 test "35.b: juani ferro no puede iniciar una relacion con giana"{
 	var juani = fixture.unSimsCualquiera()
-	var giani = fixture.unaSimsMenor()	
+	var giana = fixture.unaSimsMenor()	
 	assert.throwsException({fixture.unaRelacion(juani, giana)})
 }
 

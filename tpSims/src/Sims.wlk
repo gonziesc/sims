@@ -16,7 +16,7 @@ class Sims {
 	var personalidad
 	var dinero
 	var estado = normalidad
-	var pareja
+	var pareja = soltero
 	var sexoPreferencia
 	var informacion = []
 	var trabajo
