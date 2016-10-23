@@ -20,6 +20,7 @@ class Sims {
 	var sexoPreferencia
 	var informacion = []
 	var trabajo
+	var fuentesDeInformacion = []
 	var relacion = sinPareja
 	constructor(unSexo, unaFelicidad, unaEdad, unaPersonalidad, 
 		unSexoPreferencia, unTrabajo, unDinero
@@ -181,6 +182,24 @@ class Sims {
 	}
 	method ningunAmigoTieneLaInformacion(unaInformacion){
 		return not(amigos.any({unAmigo => unAmigo.tieneInformacion(unaInformacion)}))
+	}
+	method agregarFuenteDeInformacion(unaFuente){
+		fuentesDeInformacion.add(unaFuente)
+	}
+	method unAmigoConInfoPrivada(){
+		return amigos.find({unAmigo => unAmigo.tieneInfoPrivada()})
+	}
+	method tieneInfoPrivada(){
+		return informacion.any({unaInformacion => self.esPrivada(unaInformacion)})
+	}
+	method contarChisme(){
+		return return informacion.find({unaInformacion => self.esPrivada(unaInformacion)})
+	}
+	method informar(){
+		return self.unAmigoConInfoPrivada().contarChisme()
+	}
+	method informarse(){
+		fuentesDeInformacion.forEach({unaFuente => self.contarInformacion(unaFuente.informar())})
 	}
 	method dineroDeTodosSusAmigos(){
 		return amigos.sum({unAmigo => unAmigo.dinero()})
